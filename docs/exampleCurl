@@ -1,0 +1,7 @@
+# CREATE 
+
+curl \
+     -H "Content-Type: application/json" \
+     -X POST \
+     -d '{"key":"12345", "name":"myrig"}' \
+     http://localhost:8080/_ah/api/rig/v1/rig

@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<web-app xmlns="http://java.sun.com/xml/ns/javaee" xmlns:web="http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" version="2.5" xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd">
+
+    <!--  SERVLETS  -->
+
+    <servlet>
+        <servlet-name>EndpointsServlet</servlet-name>
+        <servlet-class>com.google.api.server.spi.EndpointsServlet</servlet-class>
+        <init-param>
+            <param-name>services</param-name>
+            <param-value>war.Greetings</param-value>
+        </init-param>
+        <init-param>
+            <param-name>restricted</param-name>
+            <param-value>false</param-value>
+        </init-param>
+    </servlet>
+    
+    <servlet>
+        <!-- Endpoints Frameworks v2.0 -->
+        <servlet-name>RigsServlet</servlet-name>
+        <servlet-class>com.google.api.server.spi.EndpointsServlet</servlet-class>
+        <!-- End of Endpoints Frameworks v2.0 -->
+        <init-param>
+            <param-name>services</param-name>
+            <param-value>com.mtg.rigbaby.resources.RigResource</param-value>
+        </init-param>
+        <init-param>
+            <param-name>restricted</param-name>
+            <param-value>false</param-value>
+        </init-param>
+    </servlet>
+    
+    
+    <!-- SERVLET MAPPINGS -->
+    <servlet-mapping>
+        <servlet-name>RigsServlet</servlet-name>
+        <url-pattern>/_ah/api/*</url-pattern>
+    </servlet-mapping>
+<!--     <servlet-mapping>
+        <servlet-name>RigsServlet</servlet-name>
+        <url-pattern>/_ah/api/rig/*</url-pattern>
+    </servlet-mapping> -->
+    
+    <welcome-file-list>
+        <welcome-file>index.html</welcome-file>
+    </welcome-file-list>
+    
+		<!-- Add a filter that fetches the service config from service management. -->
+		<filter>
+		    <filter-name>endpoints-api-configuration</filter-name>
+		    <filter-class>com.google.api.control.ServiceManagementConfigFilter</filter-class>
+		</filter>
+		
+		<!-- Add a filter that performs Endpoints logging and monitoring. -->
+		<filter>
+		    <filter-name>endpoints-api-controller</filter-name>
+		    <filter-class>com.google.api.control.extensions.appengine.GoogleAppEngineControlFilter</filter-class>
+		    <init-param>
+		        <param-name>endpoints.projectId</param-name>
+		        <param-value>${endpoints.project.id}</param-value>
+		    </init-param>
+		    <init-param>
+		        <param-name>endpoints.serviceName</param-name>
+		        <param-value>${endpoints.project.id}.appspot.com</param-value>
+		    </init-param>
+		</filter>
+    
+    <!-- [START guice_configuration] -->
+    <filter>
+        <filter-name>guiceFilter</filter-name>
+        <filter-class>com.google.inject.servlet.GuiceFilter</filter-class>
+    </filter>
+
+    <!--
+      URL Pattern /_ah/api/* instead of /* because a legacy v1 servlet uses
+      the route /_ah/api/ and using /* will erronously use the legacy v1
+      servlet instead of routing to your API.
+    -->
+    <filter-mapping>
+        <filter-name>guiceFilter</filter-name>
+        <url-pattern>/_ah/api/*</url-pattern>
+    </filter-mapping>
+
+    <listener>
+        <listener-class>com.mtg.rigbaby.modules.MyServletModuleContextListener</listener-class>
+    </listener>
+    <!-- [END guice_configuration] -->
+</web-app>
