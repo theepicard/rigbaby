@@ -11,6 +11,7 @@ public class Rig implements Serializable {
   
   private String key;
   private String name;
+  private String deviceId;
 
   public String getName() {
     return name;
@@ -27,4 +28,14 @@ public class Rig implements Serializable {
   public void setKey(String id) {
     this.key = id;
   }
+
+  public String getDeviceId() {
+    return deviceId;
+  }
+
+  public void setDeviceId(String deviceId) {
+    this.deviceId = deviceId;
+  }
+  
+  
 }

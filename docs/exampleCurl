@@ -1,7 +1,30 @@
-# CREATE 
+# RIG
 
+## Create
 curl \
      -H "Content-Type: application/json" \
      -X POST \
      -d '{"key":"12345", "name":"myrig"}' \
      http://localhost:8080/_ah/api/rig/v1/rig
+
+## Read
+curl http://localhost:8080/_ah/api/rig/v1/rig/12345
+
+# OPERATOR
+
+## Create
+curl \
+     -H "Content-Type: application/json" \
+     -X POST \
+     -d '{"key":"12345", "name":"operator"}' \
+     http://localhost:8080/_ah/api/operator/v1/operator
+
+## Read
+curl http://localhost:8080/_ah/api/operator/v1/operator/12345
+
+## Devices
+curl \
+     -H "Content-Type: application/json" \
+     -X POST \
+     -d '{"kasaUsername":"[USERNAME]", "kasaPassword":"[PASSWORD]"}' \
+     http://localhost:8080/_ah/api/operator/v1/devices

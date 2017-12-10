@@ -23,7 +23,7 @@
         <!-- End of Endpoints Frameworks v2.0 -->
         <init-param>
             <param-name>services</param-name>
-            <param-value>com.mtg.rigbaby.resources.RigResource</param-value>
+            <param-value>com.mtg.rigbaby.resources.RigResource,com.mtg.rigbaby.resources.OperatorResource</param-value>
         </init-param>
         <init-param>
             <param-name>restricted</param-name>
